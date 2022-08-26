@@ -1,0 +1,78 @@
+﻿<Window x:Class="Parser_dns_shop.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Parser_dns_shop.View" xmlns:c="http://schemas.microsoft.com/netfx/2009/xaml/presentation" xmlns:model="clr-namespace:Parser_dns_shop.Model" d:DataContext="{d:DesignInstance Type=model:ProductData}"
+        mc:Ignorable="d"
+        x:Name="MainWindows"
+        Title="Parser" Height="500" Width="600" WindowStyle="None"
+        MinHeight="500" MinWidth="600"
+        WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+        Background="Transparent">
+    <!--<WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>-->
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="CloseBtnStyle">
+            <Style.Setters>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Width" Value="30"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="25">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="5" RenderingBias="Quality" Direction="-45" ShadowDepth="2"/>
+        </Border.Effect>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1, 0" EndPoint="0, 1">
+                <GradientStop Color="#fc8507" Offset="0"/>
+                <GradientStop Color="#FF864500" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="320"/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="Transparent" MouseDown="BorderMouseDown"/>
+            <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
+                <Grid>
+                    <Line X1="0" X2="15" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
+                    <Line X1="15" X2="0" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
+                </Grid>
+            </Button>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19">
+                    <TextBlock.DataContext>
+                        <model:ProductData/>
+                    </TextBlock.DataContext>
+                </TextBlock>
+            </ScrollViewer>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBox Width="400" Margin="20" x:Name="InputTextBox" TextWrapping="Wrap"/>
+                <Button Width="125" Margin="0, 20" HorizontalAlignment="Left" Content="Добавить" FontSize="20" Click="AddBtnClick"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
