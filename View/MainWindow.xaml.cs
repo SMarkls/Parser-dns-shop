@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Parser_dns_shop.Model;
-
+using Parser_dns_shop.ViewModel;
 
 namespace Parser_dns_shop.View
 {
@@ -22,11 +10,12 @@ namespace Parser_dns_shop.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        ProductData data;
+        DataViewModel dataViewModel;
         public MainWindow()
         {
             InitializeComponent();
-            data = new ProductData();
+            ProductData data = new ProductData();
+            dataViewModel = new DataViewModel(data);
             LinksTextBlock.DataContext = data;
         }
 
@@ -37,8 +26,7 @@ namespace Parser_dns_shop.View
 
         private void BorderMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+            if (e.ChangedButton == MouseButton.Left) this.DragMove();
         }
 
         private void AddBtnClick(object sender, RoutedEventArgs e)
@@ -49,17 +37,36 @@ namespace Parser_dns_shop.View
                 MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
                 return;
             }
-            try
+            if (dataViewModel.ProductsContains(link))
             {
-                data.products.Add(link, 0);
+                MessageBox.Show("Эта ссылка уже добавлена.");
+                return;
             }
-            catch (ArgumentException ex)
+            InputTextBox.Clear();
+            StatusLabel.Text = "Ищем цену продукта...";
+            dataViewModel.AddProduct(link);
+        }
+
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            StatusLabel.Text = "Закрываем...";
+            dataViewModel.updater.parser.DisposeDriver();
+        }
+
+        private void DelBtnClick(object sender, RoutedEventArgs e)
+        {
+            string link = InputTextBox.Text;
+            if (!link.Contains("https://") || !link.Contains("dns-shop.ru"))
             {
-                if (ex.Message == "Элемент с тем же ключом уже был добавлен.")
-                    MessageBox.Show("Эта ссылка уже была добвалена.");
+                MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
+                return;
             }
-            data.OnPropertyChanged("ProductList");
-            InputTextBox.Text = data.ProductList;
+            if (!dataViewModel.ProductsContains(link))
+            {
+                MessageBox.Show("Данной ссылки нет");
+                return;
+            }
+            dataViewModel.DelProduct(link);
         }
     }
 }

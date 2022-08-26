@@ -9,13 +9,37 @@
         Title="Parser" Height="500" Width="600" WindowStyle="None"
         MinHeight="500" MinWidth="600"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True"
-        Background="Transparent">
-    <!--<WindowChrome.WindowChrome>
+        Background="Transparent"
+        Closing="WindowClosing">
+    
+    
+    <WindowChrome.WindowChrome>
         <WindowChrome 
         CaptionHeight="0"
-        ResizeBorderThickness="5" />
-    </WindowChrome.WindowChrome>-->
+        ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
+    
+    
+    
     <Window.Resources>
+        <Style TargetType="Button" x:Key="DataButtons">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="20"/>
+                </Style>
+            </Style.Resources>
+            <Style.Setters>
+                <Setter Property="BorderThickness" Value="5"/>
+                <Setter Property="Background" Value="#FFE0963D"/>
+                <Setter Property="FontFamily" Value="Serif"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="Button" x:Key="CloseBtnStyle">
             <Style.Setters>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -56,6 +80,7 @@
                 <RowDefinition Height="160"/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Background="Transparent" MouseDown="BorderMouseDown"/>
+            <TextBlock x:Name="StatusLabel" Text="Главная страница" Grid.Row="0" HorizontalAlignment="Center" FontFamily="Serif" FontSize="18" FontWeight="Black"/>
             <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
                 <Grid>
                     <Line X1="0" X2="15" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
@@ -63,15 +88,14 @@
                 </Grid>
             </Button>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                <TextBlock x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19">
-                    <TextBlock.DataContext>
-                        <model:ProductData/>
-                    </TextBlock.DataContext>
-                </TextBlock>
+                <TextBlock x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19"/>
             </ScrollViewer>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <TextBox Width="400" Margin="20" x:Name="InputTextBox" TextWrapping="Wrap"/>
-                <Button Width="125" Margin="0, 20" HorizontalAlignment="Left" Content="Добавить" FontSize="20" Click="AddBtnClick"/>
+                <StackPanel Orientation="Vertical">
+                    <Button Width="125" Margin="0, 15" Height="50" HorizontalAlignment="Left" Content="Добавить" FontSize="20" Click="AddBtnClick" Style="{StaticResource DataButtons}"/>
+                    <Button Width="125" Height="50" HorizontalAlignment="Left" Content="Удалить" FontSize="20" Click="DelBtnClick" Style="{StaticResource DataButtons}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Border>

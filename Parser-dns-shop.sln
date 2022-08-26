@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parser-dns-shop", "Parser-dns-shop.csproj", "{2E741941-5F9D-4BEE-ADF9-88752EA9EAEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLibrary", "WebLibrary\WebLibrary.csproj", "{24618EF9-A77E-4E03-9198-F92F67ABC73A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2E741941-5F9D-4BEE-ADF9-88752EA9EAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E741941-5F9D-4BEE-ADF9-88752EA9EAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E741941-5F9D-4BEE-ADF9-88752EA9EAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24618EF9-A77E-4E03-9198-F92F67ABC73A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24618EF9-A77E-4E03-9198-F92F67ABC73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24618EF9-A77E-4E03-9198-F92F67ABC73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24618EF9-A77E-4E03-9198-F92F67ABC73A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
