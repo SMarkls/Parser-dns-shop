@@ -79,17 +79,17 @@
                 <RowDefinition Height="320"/>
                 <RowDefinition Height="160"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" Background="Transparent" MouseDown="BorderMouseDown"/>
-            <TextBlock x:Name="StatusLabel" Text="Главная страница" Grid.Row="0" HorizontalAlignment="Center" FontFamily="Serif" FontSize="18" FontWeight="Black"/>
-            <Button x:Name="SettingsButton" Click="SettingsBtnClicked" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
-            <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
+            <Border Grid.Row="0" Background="Transparent" Panel.ZIndex="1" MouseDown="BorderMouseDown"/>
+            <TextBlock x:Name="StatusLabel" Panel.ZIndex="0" Text="Главная страница" Grid.Row="0" HorizontalAlignment="Center" FontFamily="Serif" FontSize="18" FontWeight="Black"/>
+            <Button x:Name="SettingsButton" Click="SettingsBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
+            <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Panel.ZIndex="1" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
                 <Grid>
                     <Line X1="0" X2="15" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
                     <Line X1="15" X2="0" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
                 </Grid>
             </Button>
             <!--Сделать Фрейм-->
-            
+            <Frame x:Name="Frame" Grid.Row="1" Grid.RowSpan="2" NavigationUIVisibility="Hidden"/>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <TextBlock x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19"/>
             </ScrollViewer>

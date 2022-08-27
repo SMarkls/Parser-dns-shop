@@ -11,6 +11,7 @@ namespace Parser_dns_shop.View
     public partial class MainWindow : Window
     {
         DataViewModel dataViewModel;
+        Settings settings;
         public MainWindow()
         {
             InitializeComponent();
@@ -72,7 +73,10 @@ namespace Parser_dns_shop.View
 
         private void SettingsBtnClicked(object sender, RoutedEventArgs e)
         {
-
+            StatusLabel.Text = StatusLabel.Text == "Настройки" ? "Главная страница" : "Настройки";
+            LinksTextBlock.Visibility = LinksTextBlock.Visibility == Visibility.Hidden ? Visibility.Visible : Visibility.Hidden;
+            settings = settings == null ? new Settings() : settings;
+            Frame.Content = Frame.Content == null ? settings : null;
         }
     }
 }
