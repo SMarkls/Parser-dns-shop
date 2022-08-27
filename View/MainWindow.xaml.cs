@@ -19,8 +19,10 @@ namespace Parser_dns_shop.View
             LinksTextBlock.DataContext = data;
         }
 
-        private void CloseBtnClicked(object sender, RoutedEventArgs e)
+        private async void CloseBtnClicked(object sender, RoutedEventArgs e)
         {
+            StatusLabel.Text = "Закрываем...";
+            await System.Threading.Tasks.Task.Delay(100);
             this.Close();
         }
 
@@ -49,7 +51,6 @@ namespace Parser_dns_shop.View
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            StatusLabel.Text = "Закрываем...";
             dataViewModel.updater.parser.DisposeDriver();
         }
 
@@ -67,6 +68,11 @@ namespace Parser_dns_shop.View
                 return;
             }
             dataViewModel.DelProduct(link);
+        }
+
+        private void SettingsBtnClicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
