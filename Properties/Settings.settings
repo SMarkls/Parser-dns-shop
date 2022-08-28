@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="PathToEdge" Type="System.String" Scope="User">
-      <Value Profile="(Default)">FFFFFFFFFFFF</Value>
+      <Value Profile="(Default)">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

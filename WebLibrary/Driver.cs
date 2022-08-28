@@ -5,7 +5,7 @@ namespace WebLibrary
 {
     class Driver
     {
-        public static IWebDriver CreateDriver(string path = @"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
+        public static IWebDriver CreateDriver(string path)
         {
             try
             {

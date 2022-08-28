@@ -13,7 +13,7 @@ namespace Parser_dns_shop.Model
         public bool isAdding = false;
         public bool isTicked = false;
         Queue<string> queue = new Queue<string>();
-        public Parser parser = new Parser();
+        public Parser parser = new Parser(Properties.Settings.Default.PathToEdge);
         ProductData data;
         public ProductUpdater(ProductData data)
         {

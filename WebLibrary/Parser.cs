@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
 using OpenQA.Selenium;
 
 namespace WebLibrary
@@ -9,9 +8,9 @@ namespace WebLibrary
     public class Parser
     {
         IWebDriver driver;
-        public Parser()
+        public Parser(string path)
         {
-            CreateDriver();
+            CreateDriver(path);
         }
         public async Task<int> GetPriceAsync(string link)
         {
@@ -34,16 +33,15 @@ namespace WebLibrary
             return int.Parse(match.Groups[1].Value);
         }
 
-        public void CreateDriver()
+        public void CreateDriver(string path)
         {
-            driver = Driver.CreateDriver();
+            driver = Driver.CreateDriver(path);
             if (!GetDriver())
                 MessageBox.Show("Ошибка сборки драйвера!");
         }
         public void DisposeDriver()
         {
             driver.Quit();
-            driver.Close();
             driver.Dispose();
         }
         public bool GetDriver()

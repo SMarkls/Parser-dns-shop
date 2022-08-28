@@ -24,10 +24,14 @@ namespace Parser_dns_shop.View
     {
        public string PathEdge
         {
-            get => Properties.Settings.Default.PathToEdge;
+            get 
+            {
+                return Properties.Settings.Default.PathToEdge;
+            }
             set
             {
                 Properties.Settings.Default.PathToEdge = value;
+                Properties.Settings.Default.Save();
                 OnPropertyChanged("PathEdge");
             }
         }
