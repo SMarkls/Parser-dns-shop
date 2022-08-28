@@ -33,7 +33,7 @@ namespace Parser_dns_shop.Model
             isAdding = false;
         }
 
-        public void DelProduct(string link)
+        public void DelProduct(string link) 
         {
             data.products.Remove(link);
             data.OnPropertyChanged("ProductList");

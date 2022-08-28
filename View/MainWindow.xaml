@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         x:Name="MainWindows"
         Title="Parser" Height="500" Width="600" WindowStyle="None"
-        MinHeight="500" MinWidth="600"
         WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         Background="Transparent"
-        Closing="WindowClosing">
+        Closing="WindowClosing"
+        ResizeMode="NoResize">
     
     
     <WindowChrome.WindowChrome>

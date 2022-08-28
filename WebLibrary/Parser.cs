@@ -36,7 +36,7 @@ namespace WebLibrary
 
         public void CreateDriver()
         {
-            driver = Driver.CreateDriver(@"C:\Program Files (x86)\Microsoft\Edge\Application\Edge.exe");
+            driver = Driver.CreateDriver();
             if (!GetDriver())
                 MessageBox.Show("Ошибка сборки драйвера!");
         }
