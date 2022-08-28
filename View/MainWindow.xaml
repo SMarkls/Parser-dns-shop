@@ -89,10 +89,10 @@
                 </Grid>
             </Button>
             <!--Сделать Фрейм-->
-            <Frame x:Name="Frame" Grid.Row="1" Grid.RowSpan="2" NavigationUIVisibility="Hidden"/>
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                <TextBlock x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19"/>
+                <TextBox Background="Transparent" BorderThickness="0" IsReadOnly="True" x:Name="LinksTextBlock" TextWrapping="Wrap" Margin="50, 10" Foreground="White" FontWeight="Medium" FontFamily="Serif" Text="{Binding Path=ProductList, Mode=OneWay}" FontSize="19"/>
             </ScrollViewer>
+            <Frame x:Name="Frame" Grid.Row="1" Grid.RowSpan="2" NavigationUIVisibility="Hidden"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <TextBox Width="400" Margin="20" x:Name="InputTextBox" TextWrapping="Wrap"/>
                 <StackPanel Orientation="Vertical">

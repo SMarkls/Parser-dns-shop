@@ -41,9 +41,9 @@ namespace Parser_dns_shop.Model
 
         private async void TimerTick(object sender, ElapsedEventArgs e)
         {
+            timer.Stop();
             await Task.Run(() => { while (isAdding || isTicked) { } });
             isTicked = true;
-            timer.Stop();
             if (data.products.Count == 0)
             {
                 timer.Start();
