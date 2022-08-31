@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Parser_dns_shop.Model;
-
+﻿using Parser_dns_shop.Model;
 
 namespace Parser_dns_shop.ViewModel
 {
     class DataViewModel
     {
         ProductData data;
+        public ProductUpdater updater;
         public DataViewModel(ProductData data)
         {
             this.data = data;
+            updater = new ProductUpdater(data);
         }
-        public async Task AddProduct(string link)
+        public void AddProduct(string link)
         {
-
+            updater.CreateProduct(link);
         }
 
-        public bool ProductsContains(string link) => !data.products.ContainsKey(link);
+        public void DelProduct(string link)
+        {
+            updater.DelProduct(link);
+        }
+
+        public bool ProductsContains(string link) => data.products.ContainsKey(link);
 
     }
 }
