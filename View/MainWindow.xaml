@@ -10,17 +10,17 @@
         WindowStartupLocation="CenterScreen" AllowsTransparency="True"
         Background="Transparent"
         Closing="WindowClosing"
-        ResizeMode="NoResize">
-    
-    
+        ResizeMode="NoResize"
+        StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+
+
     <WindowChrome.WindowChrome>
         <WindowChrome 
         CaptionHeight="0"
         ResizeBorderThickness="5"/>
     </WindowChrome.WindowChrome>
-    
-    
-    
+
+
     <Window.Resources>
         <Style TargetType="Button" x:Key="DataButtons">
             <Style.Resources>
@@ -81,7 +81,12 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Background="Transparent" Panel.ZIndex="1" MouseDown="BorderMouseDown"/>
             <TextBlock x:Name="StatusLabel" Panel.ZIndex="0" Text="Главная страница" Grid.Row="0" HorizontalAlignment="Center" FontFamily="Serif" FontSize="18" FontWeight="Black"/>
-            <Button x:Name="SettingsButton" Click="SettingsBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
+            <Button x:Name="SettingsButton" Click="SettingsBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="60, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
+            <Button x:Name="MinimizeButton" Click="MinimizeBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0">
+                <Grid>
+                    <Line X1="0" X2="15" Y1="5" Y2="5" StrokeThickness="3" Stroke="#FF582F04"/>
+                </Grid>
+            </Button>
             <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Panel.ZIndex="1" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
                 <Grid>
                     <Line X1="0" X2="15" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>

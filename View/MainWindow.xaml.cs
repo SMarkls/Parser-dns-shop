@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using Parser_dns_shop.Model;
 using Parser_dns_shop.ViewModel;
@@ -12,6 +14,9 @@ namespace Parser_dns_shop.View
     {
         DataViewModel dataViewModel;
         SettingsPage settings;
+        NotifyIcon notify;
+        WindowState state = WindowState.Normal;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -19,6 +24,20 @@ namespace Parser_dns_shop.View
             dataViewModel = new DataViewModel(data);
             LinksTextBlock.DataContext = data;
             LinksTextBlock.TextChanged += (a, e) => StatusLabel.Text = "Главная страница";
+
+
+            notify = new NotifyIcon();
+            notify.BalloonTipText = "Свёрнуто в трей. Для раскрытия нажмите на иконку.";
+            notify.BalloonTipTitle = "Парсер DNS";
+            notify.Text = "Парсер DNS";
+            notify.Click += NotifyClicked;
+            notify.Icon = Properties.Resources.NotifyLogo;
+        }
+
+        private void NotifyClicked(object sender, System.EventArgs e)
+        {
+            Show();
+            WindowState = state;
         }
 
         private async void CloseBtnClicked(object sender, RoutedEventArgs e)
@@ -38,12 +57,12 @@ namespace Parser_dns_shop.View
             string link = InputTextBox.Text;
             if (!link.Contains("https://") || !link.Contains("dns-shop.ru"))
             {
-                MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
+                System.Windows.MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
                 return;
             }
             if (dataViewModel.ProductsContains(link))
             {
-                MessageBox.Show("Эта ссылка уже добавлена.");
+                System.Windows.MessageBox.Show("Эта ссылка уже добавлена.");
                 return;
             }
             InputTextBox.Clear();
@@ -54,6 +73,7 @@ namespace Parser_dns_shop.View
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             dataViewModel.updater.parser.DisposeDriver();
+            notify.Dispose();
         }
 
         private void DelBtnClick(object sender, RoutedEventArgs e)
@@ -61,12 +81,12 @@ namespace Parser_dns_shop.View
             string link = InputTextBox.Text;
             if (!link.Contains("https://") || !link.Contains("dns-shop.ru"))
             {
-                MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
+                System.Windows.MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
                 return;
             }
             if (!dataViewModel.ProductsContains(link))
             {
-                MessageBox.Show("Данной ссылки нет");
+                System.Windows.MessageBox.Show("Данной ссылки нет");
                 return;
             }
             dataViewModel.DelProduct(link);
@@ -78,8 +98,36 @@ namespace Parser_dns_shop.View
             LinksTextBlock.Visibility = LinksTextBlock.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
             settings = settings == null ? new SettingsPage() : settings;
             Frame.Content = Frame.Content == null ? settings : null;
-            //if (settings != Properties.Settings.Default.PathToEdge)
+        }
 
+        private void OnStateChanged(object sender, System.EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+                if (notify != null)
+                    notify.ShowBalloonTip(1000);
+            }
+            else
+                state = WindowState;
+        }
+
+        private void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                if (notify != null)
+                    notify.Visible = !IsVisible;
+            }
+            catch (NullReferenceException)
+            {
+
+            }
+        }
+
+        private void MinimizeBtnClicked(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }
