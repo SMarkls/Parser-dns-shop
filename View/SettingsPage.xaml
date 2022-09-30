@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       x:Name="SettingsPages"
       d:DesignHeight="480" d:DesignWidth="600"
-      Title="Settings">
+      Title="Settings"
+      Loaded="PageLoaded">
     <Page.Resources>
         <Style TargetType="TextBlock">
             <Style.Setters>

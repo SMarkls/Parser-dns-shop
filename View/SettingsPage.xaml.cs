@@ -70,5 +70,11 @@ namespace Parser_dns_shop.View
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
+
+        private void PageLoaded(object sender, RoutedEventArgs e)
+        {
+            FrequencyUpdatingTextBox.Text = Frequency;
+            PathEdgeTextBox.Text = PathEdge;
+        }
     }
 }
