@@ -34,5 +34,17 @@ namespace Parser_dns_shop.Properties {
                 this["PathToEdge"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60000")]
+        public string Frequency {
+            get {
+                return ((string)(this["Frequency"]));
+            }
+            set {
+                this["Frequency"] = value;
+            }
+        }
     }
 }

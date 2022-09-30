@@ -8,6 +8,7 @@ namespace WebLibrary
     public class Parser
     {
         IWebDriver driver;
+        private bool GetDriverStatus => driver != null;
         public Parser(string path)
         {
             CreateDriver(path);
@@ -35,18 +36,15 @@ namespace WebLibrary
 
         public void CreateDriver(string path)
         {
-            driver = Driver.CreateDriver(path);
-            if (!GetDriver())
+            if (!GetDriverStatus)
+                driver = Driver.CreateDriver(path);
+            if (!GetDriverStatus)
                 MessageBox.Show("Ошибка сборки драйвера!");
         }
         public void DisposeDriver()
         {
             driver.Quit();
             driver.Dispose();
-        }
-        public bool GetDriver()
-        {
-            return driver != null;
         }
     }
 }

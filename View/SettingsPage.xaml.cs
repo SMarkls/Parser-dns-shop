@@ -22,7 +22,7 @@ namespace Parser_dns_shop.View
     /// </summary>
     public partial class SettingsPage : Page
     {
-       public string PathEdge
+       private string PathEdge
         {
             get 
             {
@@ -36,10 +36,32 @@ namespace Parser_dns_shop.View
             }
         }
 
+        private string Frequency
+        {
+            get
+            {
+                return Properties.Settings.Default.Frequency;
+            }
+            set
+            {
+                if (!int.TryParse(value, out int a))
+                {
+                    MessageBox.Show("Неверно введено число.");
+                    return;
+                }
+                Properties.Settings.Default.Frequency = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged("Frequency");
+            }
+        }
+
         public SettingsPage()
         {
             InitializeComponent();
+            FrequencyUpdatingTextBox.DataContext = this;
+            FrequencyUpdatingTextBox.Text = Frequency;
             PathEdgeTextBox.DataContext = this;
+            PathEdgeTextBox.Text = PathEdge;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

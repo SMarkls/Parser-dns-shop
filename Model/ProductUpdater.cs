@@ -9,28 +9,28 @@ namespace Parser_dns_shop.Model
 {
     class ProductUpdater
     {
+        static string pathToEdge = Properties.Settings.Default.PathToEdge;
+        static int frequency = int.Parse(Properties.Settings.Default.Frequency);
         Timer timer;
-        public bool isAdding = false;
-        public bool isTicked = false;
         Queue<string> queue = new Queue<string>();
-        public Parser parser = new Parser(Properties.Settings.Default.PathToEdge);
+        public Parser parser = new Parser(pathToEdge);
         ProductData data;
         public ProductUpdater(ProductData data)
         {
             this.data = data;
-            timer = new Timer(60000);
+            timer = new Timer(frequency);
             timer.Elapsed += TimerTick;
             timer.Start();
             
         }
         public async Task CreateProduct(string link)
         {
-            await Task.Run(() => { while (isTicked || isAdding) { } });
-            isAdding = true;
+            InstanceChecker.Wait();
+            parser.CreateDriver(pathToEdge);
             int price = await parser.GetPriceAsync(link);
             data.products.Add(link, price);
             data.OnPropertyChanged("ProductList");
-            isAdding = false;
+            InstanceChecker.Release();
         }
 
         public void DelProduct(string link) 
@@ -39,20 +39,26 @@ namespace Parser_dns_shop.Model
             data.OnPropertyChanged("ProductList");
         }
 
-        private async void TimerTick(object sender, ElapsedEventArgs e)
+        private void TimerTick(object sender, ElapsedEventArgs e)
+        {
+            TimerTickHandler();
+        }
+        private async Task TimerTickHandler()
         {
             timer.Stop();
-            await Task.Run(() => { while (isAdding || isTicked) { } });
-            isTicked = true;
+            InstanceChecker.Wait();
+            parser.CreateDriver(pathToEdge);
             if (data.products.Count == 0)
             {
+                InstanceChecker.Release();
+                parser.DisposeDriver();
                 timer.Start();
                 return;
-            }                
+            }
 
             foreach (var t in data.products)
                 queue.Enqueue(t.Key);
-            foreach(var x in queue)
+            foreach (var x in queue)
             {
                 int price = await parser.GetPriceAsync(x);
                 if (data.products[x] != price)
@@ -63,8 +69,9 @@ namespace Parser_dns_shop.Model
                 }
             }
             queue.Clear();
-            isTicked = false;
+            InstanceChecker.Release();
             timer.Start();
+            parser.DisposeDriver();
         }
     }
 }
