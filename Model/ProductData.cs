@@ -12,7 +12,7 @@ namespace Parser_dns_shop.Model
                 StringBuilder sb = new StringBuilder();
                 foreach (var p in products)
                     sb.Append(p.Key + ":\t" + p.Value.ToString() + "Р\n");
-                return sb.ToString() ?? "afaf";
+                return sb.ToString() ?? "";
             }
         }
         public Dictionary<string, int> products;

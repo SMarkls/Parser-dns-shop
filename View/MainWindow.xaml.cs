@@ -34,7 +34,7 @@ namespace Parser_dns_shop.View
             notify.Icon = Properties.Resources.NotifyLogo;
         }
 
-        private void NotifyClicked(object sender, System.EventArgs e)
+        private void NotifyClicked(object sender, EventArgs e)
         {
             Show();
             WindowState = state;
@@ -44,12 +44,12 @@ namespace Parser_dns_shop.View
         {
             StatusLabel.Text = "Закрываем...";
             await System.Threading.Tasks.Task.Delay(100);
-            this.Close();
+            Close();
         }
 
         private void BorderMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left) this.DragMove();
+            if (e.ChangedButton == MouseButton.Left) DragMove();
         }
 
         private void AddBtnClick(object sender, RoutedEventArgs e)
@@ -96,11 +96,11 @@ namespace Parser_dns_shop.View
         {
             StatusLabel.Text = StatusLabel.Text == "Настройки" ? "Главная страница" : "Настройки";
             LinksTextBlock.Visibility = LinksTextBlock.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            settings = settings == null ? new SettingsPage() : settings;
+            settings = settings ?? new SettingsPage();
             Frame.Content = Frame.Content == null ? settings : null;
         }
 
-        private void OnStateChanged(object sender, System.EventArgs e)
+        private void OnStateChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Minimized)
             {

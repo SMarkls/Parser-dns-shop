@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Parser_dns_shop.View" xmlns:c="http://schemas.microsoft.com/netfx/2009/xaml/presentation" xmlns:model="clr-namespace:Parser_dns_shop.Model" d:DataContext="{d:DesignInstance Type=model:ProductData}"
+        xmlns:model="clr-namespace:Parser_dns_shop.Model" d:DataContext="{d:DesignInstance Type=model:ProductData}"
         mc:Ignorable="d"
         x:Name="MainWindows"
         Title="Parser" Height="500" Width="600" WindowStyle="None"
@@ -81,13 +81,13 @@
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Background="Transparent" Panel.ZIndex="1" MouseDown="BorderMouseDown"/>
             <TextBlock x:Name="StatusLabel" Panel.ZIndex="0" Text="Главная страница" Grid.Row="0" HorizontalAlignment="Center" FontFamily="Serif" FontSize="18" FontWeight="Black"/>
-            <Button x:Name="SettingsButton" Click="SettingsBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="60, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
-            <Button x:Name="MinimizeButton" Click="MinimizeBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0">
+            <Button Click="SettingsBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="60, 0" FontFamily="Serif" FontWeight="Black" FontSize="20" Content="S"/>
+            <Button Click="MinimizeBtnClicked" Panel.ZIndex="1" Grid.Row="0" Style="{StaticResource CloseBtnStyle}" Margin="30, 0">
                 <Grid>
                     <Line X1="0" X2="15" Y1="5" Y2="5" StrokeThickness="3" Stroke="#FF582F04"/>
                 </Grid>
             </Button>
-            <Button x:Name="CloseBtn" Grid.Row="0" Click="CloseBtnClicked" Panel.ZIndex="1" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
+            <Button Grid.Row="0" Click="CloseBtnClicked" Panel.ZIndex="1" Style="{StaticResource CloseBtnStyle}" Foreground="#FF582F04">
                 <Grid>
                     <Line X1="0" X2="15" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>
                     <Line X1="15" X2="0" Y1="0" Y2="10" StrokeThickness="3" Stroke="#FF582F04"/>

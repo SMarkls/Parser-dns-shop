@@ -39,9 +39,9 @@ namespace Parser_dns_shop.Model
             data.OnPropertyChanged("ProductList");
         }
 
-        private void TimerTick(object sender, ElapsedEventArgs e)
+        private async void TimerTick(object sender, ElapsedEventArgs e)
         {
-            TimerTickHandler();
+            await TimerTickHandler();
         }
         private async Task TimerTickHandler()
         {
