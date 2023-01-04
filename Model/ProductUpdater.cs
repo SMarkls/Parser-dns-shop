@@ -23,22 +23,14 @@ namespace Parser_dns_shop.Model
             timer.Start();
             
         }
-        public async Task CreateProduct(string link)
+        public async Task CreateProductAsync(string link)
         {
             InstanceChecker.Wait();
             parser.CreateDriver(pathToEdge);
             int price = await parser.GetPriceAsync(link);
-            data.products.Add(link, price);
-            data.OnPropertyChanged("ProductList");
+            data.AddProduct(link, price);
             InstanceChecker.Release();
         }
-
-        public void DelProduct(string link) 
-        {
-            data.products.Remove(link);
-            data.OnPropertyChanged("ProductList");
-        }
-
         private async void TimerTick(object sender, ElapsedEventArgs e)
         {
             await TimerTickHandler();
@@ -64,8 +56,7 @@ namespace Parser_dns_shop.Model
                 if (data.products[x] != price)
                 {
                     MessageBox.Show($"Изменения в цене {x}: {data.products[x]}->{price}");
-                    data.products[x] = price;
-                    data.OnPropertyChanged("ProductList");
+                    data.SetPrice(x, price);
                 }
             }
             queue.Clear();

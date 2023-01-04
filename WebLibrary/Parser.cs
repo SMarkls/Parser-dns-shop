@@ -20,7 +20,7 @@ namespace WebLibrary
             await Task.Run(() =>
             {
                 driver.Navigate().GoToUrl(link);
-                string pattern = "\"price\":(.*?),";
+                string pattern = @"\""price\"":([\d]*?),";
                 string line = driver.PageSource;
                 do
                 {

@@ -12,19 +12,21 @@ namespace Parser_dns_shop.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        DataViewModel dataViewModel;
         SettingsPage settings;
         NotifyIcon notify;
         WindowState state = WindowState.Normal;
-
+        private ProductUpdater updater;
+        private ProductData data;
         public MainWindow()
         {
             InitializeComponent();
-            ProductData data = new ProductData();
-            dataViewModel = new DataViewModel(data);
-            LinksTextBlock.DataContext = data;
-            LinksTextBlock.TextChanged += (a, e) => StatusLabel.Text = "Главная страница";
-
+            var viewModel = new DataViewModel();
+            LinksTextBlock.DataContext = viewModel;
+            data = new ProductData(viewModel);
+            viewModel.Data = data;
+            updater = new ProductUpdater(data);
+            LinksTextBlock.TextChanged += (_, __) => StatusLabel.Text = "Главная страница";
+            
 
             notify = new NotifyIcon();
             notify.BalloonTipText = "Свёрнуто в трей. Для раскрытия нажмите на иконку.";
@@ -52,7 +54,7 @@ namespace Parser_dns_shop.View
             if (e.ChangedButton == MouseButton.Left) DragMove();
         }
 
-        private void AddBtnClick(object sender, RoutedEventArgs e)
+        private async void AddBtnClick(object sender, RoutedEventArgs e)
         {
             string link = InputTextBox.Text;
             if (!link.Contains("https://") || !link.Contains("dns-shop.ru"))
@@ -60,19 +62,19 @@ namespace Parser_dns_shop.View
                 System.Windows.MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
                 return;
             }
-            if (dataViewModel.ProductsContains(link))
+            if (data.ProductsContains(link))
             {
                 System.Windows.MessageBox.Show("Эта ссылка уже добавлена.");
                 return;
             }
             InputTextBox.Clear();
             StatusLabel.Text = "Ищем цену продукта...";
-            dataViewModel.AddProduct(link);
+            await updater.CreateProductAsync(link);
         }
 
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            dataViewModel.updater.parser.DisposeDriver();
+            updater.parser.DisposeDriver();
             notify.Dispose();
         }
 
@@ -84,12 +86,12 @@ namespace Parser_dns_shop.View
                 System.Windows.MessageBox.Show("Неверная ссылка. Нужно вставлять вмемсте с https://");
                 return;
             }
-            if (!dataViewModel.ProductsContains(link))
+            if (!data.ProductsContains(link))
             {
                 System.Windows.MessageBox.Show("Данной ссылки нет");
                 return;
             }
-            dataViewModel.DelProduct(link);
+            data.RemoveProduct(link);
         }
 
         private void SettingsBtnClicked(object sender, RoutedEventArgs e)

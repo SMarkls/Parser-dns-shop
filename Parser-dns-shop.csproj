@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\InstanceChecker.cs" />
+    <Compile Include="Model\ProductData.cs" />
     <Compile Include="View\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -70,7 +71,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\ProductUpdater.cs" />
-    <Compile Include="Model\ProductData.cs" />
     <Compile Include="ViewModel\DataViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
